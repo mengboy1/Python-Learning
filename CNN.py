@@ -4,6 +4,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 # number 1 to 10 data
 mnist = input_data.read_data_sets('MNIST_data', one_hot=True)   #独热码，把数据集变成[00001000]（每行只有一个位置是1，其余位置是0）这种格式
 
+
 def compute_accuracy(v_xs, v_ys):
     global prediction
     y_pre = sess.run(prediction, feed_dict={xs: v_xs, keep_prob: 1})
