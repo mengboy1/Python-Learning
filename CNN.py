@@ -1,7 +1,8 @@
+# CNN训练进行数字图像识别
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 # number 1 to 10 data
-mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+mnist = input_data.read_data_sets('MNIST_data', one_hot=True)   #独热码，把数据集变成[00001000]（每行只有一个位置是1，其余位置是0）这种格式
 
 def compute_accuracy(v_xs, v_ys):
     global prediction
@@ -33,7 +34,7 @@ xs = tf.placeholder(tf.float32, [None, 784])/255.   # 28x28
 ys = tf.placeholder(tf.float32, [None, 10])
 keep_prob = tf.placeholder(tf.float32)
 x_image = tf.reshape(xs, [-1, 28, 28, 1])
-# print(x_image.shape)  # [n_samples, 28,28,1]
+print(x_image.shape)  # [n_samples, 28,28,1]
 
 ## conv1 layer ##
 W_conv1 = weight_variable([5,5, 1,32]) # patch 5x5, in size 1, out size 32
@@ -67,13 +68,7 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 
 sess = tf.Session()
-# important step
-# tf.initialize_all_variables() no long valid from
-# 2017-03-02 if using tensorflow >= 0.12
-if int((tf.__version__).split('.')[1]) < 12 and int((tf.__version__).split('.')[0]) < 1:
-    init = tf.initialize_all_variables()
-else:
-    init = tf.global_variables_initializer()
+init = tf.global_variables_initializer()
 sess.run(init)
 
 for i in range(1000):
