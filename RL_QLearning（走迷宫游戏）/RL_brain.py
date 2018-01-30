@@ -19,7 +19,7 @@ class QLearningTable:
 			state_action = self.q_table.loc[observation,:]
 			# 同一个state,可能会有多个相同的Q action value ,所以乱序一下
 			state_action = state_action.reindex(np.random.permutation(state_action.index))
-			action = state_action.argmax()
+			action = state_action.idxmax()
 		else:	#随机选择 action
 			action = np.random.choice(self.actions)
 		return action

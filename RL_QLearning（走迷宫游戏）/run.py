@@ -4,7 +4,7 @@
 from maze_env import Maze
 from RL_brain import QLearningTable
 
-def update():
+def rl():
     for episode in range(100):
         # initial observation
         observation = env.reset()
@@ -33,9 +33,8 @@ def update():
     print('game over')
     env.destroy()
 
-if __name__ == "__main__":
-    env = Maze()
-    RL = QLearningTable(actions=list(range(env.n_actions)))
+env = Maze()
+RL = QLearningTable(actions=list(range(env.n_actions)))
 
-    env.after(100, update)
-    env.mainloop()
+env.after(100,rl)
+env.mainloop()
